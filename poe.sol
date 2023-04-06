@@ -5,8 +5,8 @@ contract Poe {
     bytes32[] private proofs;
 
     // Calculate document proof.
-    function calculateProof(string document) public returns (bytes32) {
-        return sha256(document);
+    function calculateProof(string memory document) public returns (bytes32) {
+        return sha256(abi.encodePacked(document));
     }
 
     // Store proof.
@@ -15,7 +15,7 @@ contract Poe {
     }
 
     // Check if a document has proof
-    function checkDocument(string document) public returns (bool) {
+    function checkDocument(string memory document) public returns (bool) {
         return hasProof(calculateProof(document));
     }
 
