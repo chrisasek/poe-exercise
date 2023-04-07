@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract POE {
+contract Poe {
     bytes32[] private proofs;
 
     // Calculate document proof.
     function calculateProof(
         string memory document
-    ) public pure returns (bytes32) {
+    ) private pure returns (bytes32) {
         return sha256(abi.encodePacked(document));
     }
 
     // Store proof.
-    function storeProof(bytes32 proof) public {
-        proofs.push(proof);
+    function storeDocument(string memory document) public {
+        proofs.push(calculateProof(document));
     }
 
     // Check if a document has proof
@@ -22,7 +22,7 @@ contract POE {
     }
 
     // Returns `true` if proof is stored.
-    function hasProof(bytes32 proof) public view returns (bool) {
+    function hasProof(bytes32 proof) private view returns (bool) {
         for (uint256 i = 0; i < proofs.length; i++) {
             if (proofs[i] == proof) {
                 return true;

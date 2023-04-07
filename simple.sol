@@ -9,21 +9,20 @@ contract SimplePOE {
     // }
 
     // Calculate and store document
-    function store(string memory document) public {
+    function storeDocument(string memory document) public {
         proof = calculateProof(document);
     }
 
     // Get a document sha
     function calculateProof(
         string memory document
-    ) public pure returns (bytes32) {
+    ) private pure returns (bytes32) {
         return sha256(abi.encodePacked(document));
     }
 
     // Get proof
-    function hasProof(bytes32 _hash) public view returns (bool) {
-        if (_hash == proof) return true;
-
+    function checkDocument(string memory document) public view returns (bool) {
+        if (calculateProof(document) == proof) return true;
         return false;
     }
 }
